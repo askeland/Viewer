@@ -144,7 +144,14 @@ class ViewerItemController: UIViewController {
         self.view.addSubview(self.videoProgressView)
 
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewerItemController.tapAction))
+        tapRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapRecognizer)
+        
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewerItemController.doubleTapAction))
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        self.view.addGestureRecognizer(doubleTapRecognizer)
+        
+        tapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
     }
 
     func tapAction() {
@@ -156,6 +163,11 @@ class ViewerItemController: UIViewController {
         }
 
         self.controllerDelegate?.viewerItemControllerDidTapItem(self, completion: nil)
+    }
+    
+    func doubleTapAction() {
+        let zoomScale = self.scrollView.zoomScale == 1 ? self.maxZoomScale() : 1
+        self.scrollView.setZoomScale(zoomScale, animated: true)
     }
 
     override func viewWillLayoutSubviews() {
