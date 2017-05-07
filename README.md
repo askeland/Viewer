@@ -1,11 +1,35 @@
-# Viewer
+![Viewer](https://raw.githubusercontent.com/bakkenbaeck/Viewer/master/GitHub/viewer-logo-2.jpg)
 
-[![Version](https://img.shields.io/cocoapods/v/Viewer.svg?style=flat)](https://cocoapods.org/pods/Viewer)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/bakkenbaeck/Viewer)
-![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20OS%20X%20%7C%20watchOS%20%7C%20tvOS%20-lightgrey.svg)
-[![License](https://img.shields.io/cocoapods/l/Viewer.svg?style=flat)](https://cocoapods.org/pods/DATAStack)
+<div align = "center">
+  <a href="https://cocoapods.org/pods/Viewer">
+    <img src="https://img.shields.io/cocoapods/v/Viewer.svg?style=flat" />
+  </a>
+  
+  <a href="https://github.com/bakkenbaeck/Viewer">
+    <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" />
+  </a>
+  
+  <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20tvOS%20-lightgrey.svg" />
+  
+  <a href="https://cocoapods.org/pods/Viewer">
+    <img src="https://img.shields.io/cocoapods/l/Viewer.svg?style=flat" />
+  </a>
+</div>
 
-## Demo
+## Table of Contents
+
+* [Features](#features)
+  * [Focus](#focus)
+  * [Browse](#browse)
+  * [Rotation](#rotation)
+  * [Zoom](#zoom)
+  * [tvOS](#tvos)
+* [Setup](#setup)
+* [Installation](#installation)
+* [License](#license)
+* [Author](#author)
+
+## Features
 
 ### Focus
 
@@ -39,46 +63,45 @@ Pinch-to-zoom works seamlessly in images.
   <img src="https://raw.githubusercontent.com/bakkenbaeck/Viewer/master/GitHub/zoom.gif"/>
 </p>
 
+### tvOS
+
+Support for the Apple TV.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/bakkenbaeck/Viewer/master/GitHub/tv.gif"/>
+</p>
+
 ## Setup
 
-From your UICollectionView:
+You'll need a collection of items that comform to the [Viewable protocol](https://github.com/bakkenbaeck/Viewer/blob/master/Source/Viewable.swift). Then, from your UICollectionView:
 
 ```swift
+import Viewer
+
 override public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     guard let collectionView = self.collectionView else { return }
 
     let viewerController = ViewerController(initialIndexPath: indexPath, collectionView: collectionView)
     viewerController.dataSource = self
-
-    let headerView = HeaderView()
-    headerView.viewDelegate = self
-    viewerController.headerView = headerView
-
-    let footerView = FooterView()
-    footerView.viewDelegate = self
-    viewerController.footerView = footerView
-
-    self.presentViewController(viewerController, animated: false, completion: nil)
+    presentViewController(viewerController, animated: false, completion: nil)
 }
 
 extension CollectionController: ViewerControllerDataSource {
     func viewerController(_ viewerController: ViewerController, viewableAt indexPath: IndexPath) -> Viewable {
-        return self.photos[indexPath.row]
+        return photos[indexPath.row]
     }
 }
 ```
 
 ## Installation
 
-**Viewer** is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### CocoaPods
 
 ```ruby
 pod 'Viewer'
 ```
 
-**Viewer** is also available through [Carthage](https://github.com/Carthage/Carthage). To install
-it, simply add the following line to your Cartfile:
+### Carthage
 
 ```ruby
 github "bakkenbaeck/Viewer"
@@ -86,8 +109,14 @@ github "bakkenbaeck/Viewer"
 
 ## License
 
-**Viewer** is available under the MIT license. See the LICENSE file for more info.
+**Viewer** is available under the MIT license. See the [LICENSE](/LICENSE.md) file for more info.
 
 ## Author
 
-Bakken & Bæck, [@bakkenbaeck](https://twitter.com/bakkenbaeck)
+<a href=https://bakkenbaeck.com>
+  <img src="https://raw.githubusercontent.com/bakkenbaeck/Viewer/master/GitHub/bakkenbaeck-logo.jpg" />
+</a>
+
+We are a digital studio that helps startups and established companies invent, build, and launch their next product or venture.
+
+We also build startups of our own. If you would like to work on open source components like this one you would probably be interested in [joining us](https://bakkenbaeck.com/jobs).
